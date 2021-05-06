@@ -992,6 +992,8 @@ gstd_parser_pipeline_create_ref (GstdSession * session, gchar * action,
   GstdReturnCode ret;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
+  g_return_val_if_fail (action, GSTD_NULL_ARGUMENT);
+  g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
 
   tokens = g_strsplit (args, " ", 2);
 
@@ -1045,6 +1047,7 @@ gstd_parser_pipeline_delete_ref (GstdSession * session, gchar * action,
   guint refcount;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
+  g_return_val_if_fail (action, GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
 
   /* Get the pipeline list node */
@@ -1089,6 +1092,7 @@ gstd_parser_pipeline_play_ref (GstdSession * session, gchar * action,
   guint refcount;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
+  g_return_val_if_fail (action, GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
 
   /* Get the pipeline node */
@@ -1141,6 +1145,7 @@ gstd_parser_pipeline_stop_ref (GstdSession * session, gchar * action,
   guint refcount;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
+  g_return_val_if_fail (action, GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
 
   /* Get the pipeline node */
