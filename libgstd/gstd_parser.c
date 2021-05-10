@@ -169,7 +169,7 @@ static GstdReturnCode
 gstd_parser_parse_raw_cmd (GstdSession * session, gchar * action, gchar * args,
     gchar ** response)
 {
-  gchar **tokens;
+  gchar **tokens = NULL;
   gchar *uri, *rest;
   GstdObject *node;
   GstdReturnCode ret;
@@ -219,7 +219,7 @@ GstdReturnCode
 gstd_parser_parse_cmd (GstdSession * session, const gchar * cmd,
     gchar ** response)
 {
-  gchar **tokens;
+  gchar **tokens = NULL;
   gchar *action, *args;
   GstdCmd *cb;
   GstdReturnCode ret = GSTD_BAD_COMMAND;
@@ -465,7 +465,7 @@ gstd_parser_pipeline_verbose (GstdSession * session, gchar * action,
 
 #if GST_VERSION_MINOR >= 10
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -497,7 +497,7 @@ gstd_parser_element_set (GstdSession * session, gchar * action, gchar * args,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -524,7 +524,7 @@ gstd_parser_element_get (GstdSession * session, gchar * action, gchar * args,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -583,7 +583,7 @@ gstd_parser_list_properties (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -609,7 +609,7 @@ gstd_parser_list_signals (GstdSession * session, gchar * action, gchar * args,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -654,7 +654,7 @@ gstd_parser_bus_filter (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -679,7 +679,7 @@ gstd_parser_bus_timeout (GstdSession * session, gchar * action, gchar * args,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -723,7 +723,7 @@ gstd_parser_event_seek (GstdSession * session, gchar * action, gchar * args,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -767,7 +767,7 @@ gstd_parser_event_flush_stop (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -876,7 +876,7 @@ gstd_parser_signal_connect (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -904,7 +904,7 @@ gstd_parser_signal_disconnect (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -931,7 +931,7 @@ gstd_parser_action_emit (GstdSession * session, gchar * action,
 {
   GstdReturnCode ret;
   gchar *uri;
-  gchar **tokens;
+  gchar **tokens = NULL;
 
   g_return_val_if_fail (GSTD_IS_SESSION (session), GSTD_NULL_ARGUMENT);
   g_return_val_if_fail (args, GSTD_NULL_ARGUMENT);
@@ -984,7 +984,7 @@ static GstdReturnCode
 gstd_parser_pipeline_create_ref (GstdSession * session, gchar * action,
     gchar * args, gchar ** response)
 {
-  gchar **tokens;
+  gchar **tokens = NULL;
   gchar *description;
   gchar *uri;
   GstdObject *pipeline_list_node;
