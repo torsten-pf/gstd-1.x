@@ -1,6 +1,6 @@
 /*
  * GStreamer Daemon - Gst Launch under steroids
- * Copyright (c) 2015-2021 Ridgerun, LLC (http://www.ridgerun.com)
+ * Copyright (c) 2015-2022 Ridgerun, LLC (http://www.ridgerun.com)
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,11 +26,11 @@
 #include <gst/gst.h>
 
 #include "gstd_ipc.h"
-#include "gstd_tcp.h"
 #include "gstd_element.h"
 #include "gstd_pipeline_bus.h"
 #include "gstd_event_handler.h"
 
+#include "gstd_tcp.h"
 
 /* Gstd TCP debugging category */
 GST_DEBUG_CATEGORY_STATIC (gstd_tcp_debug);

@@ -1,6 +1,6 @@
 /*
  * GStreamer Daemon - Gst Launch under steroids
- * Copyright (c) 2015-2021 Ridgerun, LLC (http://www.ridgerun.com)
+ * Copyright (c) 2015-2022 Ridgerun, LLC (http://www.ridgerun.com)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,10 +22,11 @@
 #endif
 
 #include "gstd_event_handler.h"
-#include "gstd_parser.h"
 #include "gstd_pipeline.h"
 #include "gstd_session.h"
 #include "gstd_state.h"
+
+#include "gstd_parser.h"
 
 #define check_argument(arg, code) \
     if (NULL == (arg)) return (code)
@@ -986,7 +987,6 @@ gstd_parser_pipeline_create_ref (GstdSession * session, gchar * action,
 {
   gchar **tokens = NULL;
   gchar *description = NULL;
-  gchar *uri = NULL;
   GstdObject *pipeline_list_node = NULL;
   GstdObject *pipeline_node = NULL;
   GstdReturnCode ret = GSTD_EOK;
@@ -1012,10 +1012,7 @@ gstd_parser_pipeline_create_ref (GstdSession * session, gchar * action,
 
   /* Pipeline doesn't exist */
   if (!pipeline_node) {
-    uri = g_strdup_printf ("/pipelines %s", args ? args : "");
-    ret =
-        gstd_parser_parse_raw_cmd (session, (gchar *) "create", uri, response);
-    g_free (uri);
+    ret = gstd_parser_pipeline_create (session, action, args, response);
     if (ret) {
       goto create_error;
     }
@@ -1045,7 +1042,6 @@ static GstdReturnCode
 gstd_parser_pipeline_delete_ref (GstdSession * session, gchar * action,
     gchar * args, gchar ** response)
 {
-  gchar *uri = NULL;
   GstdObject *pipeline_list_node = NULL;
   GstdObject *pipeline_node = NULL;
   GstdReturnCode ret = GSTD_EOK;
@@ -1067,15 +1063,13 @@ gstd_parser_pipeline_delete_ref (GstdSession * session, gchar * action,
   /* Look for the pipeline node */
   pipeline_node = gstd_list_find_child (GSTD_LIST (pipeline_list_node), args);
   if (!pipeline_node) {
+    ret = GSTD_NO_PIPELINE;
     goto pipeline_node_error;
   }
 
   g_object_get (pipeline_node, "refcount", &refcount, NULL);
   if (1 == refcount) {
-    uri = g_strdup_printf ("/pipelines %s", args);
-    ret =
-        gstd_parser_parse_raw_cmd (session, (gchar *) "delete", uri, response);
-    g_free (uri);
+    ret = gstd_parser_pipeline_delete (session, action, args, response);
   } else {
     ret = gstd_pipeline_decrement_refcount (GSTD_PIPELINE (pipeline_node));
   }
@@ -1122,10 +1116,7 @@ gstd_parser_pipeline_play_ref (GstdSession * session, gchar * action,
 
   g_object_get (state_node, "refcount", &refcount, NULL);
   if (0 == refcount) {
-    uri = g_strdup_printf ("/pipelines/%s/state playing", args);
-    ret =
-        gstd_parser_parse_raw_cmd (session, (gchar *) "update", uri, response);
-    g_free (uri);
+    ret = gstd_parser_pipeline_play (session, action, args, response);
     if (ret) {
       goto play_error;
     }
@@ -1178,10 +1169,7 @@ gstd_parser_pipeline_stop_ref (GstdSession * session, gchar * action,
 
   g_object_get (state_node, "refcount", &refcount, NULL);
   if (1 == refcount) {
-    uri = g_strdup_printf ("/pipelines/%s/state null", args);
-    ret =
-        gstd_parser_parse_raw_cmd (session, (gchar *) "update", uri, response);
-    g_free (uri);
+    ret = gstd_parser_pipeline_stop (session, action, args, response);
     if (ret) {
       goto stop_error;
     }
