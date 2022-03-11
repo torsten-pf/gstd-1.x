@@ -133,7 +133,7 @@ main (gint argc, gchar * argv[])
   }
 
   if (daemon || kill) {
-    if (!gstd_log_init (gstdlogfile, gstlogfile, !nolog)) {
+    if (!gstd_log_init (gstdlogfile, gstlogfile, !nolog && !kill)) {
       ret = EXIT_FAILURE;
       goto out;
     }
