@@ -74,6 +74,7 @@ main (gint argc, gchar * argv[])
   gint ret = EXIT_SUCCESS;
   gchar *current_filename = NULL;
   gchar *filename = NULL;
+  gboolean nolog = FALSE;
   gboolean parent = FALSE;
 
   GstD *gstd = NULL;
@@ -99,6 +100,10 @@ main (gint argc, gchar * argv[])
     ,
     {"gst-log-filename", 'd', 0, G_OPTION_ARG_FILENAME, &gstlogfile,
         "Create gst.log file to path", NULL}
+    ,
+    {"no-log", 'L', 0, G_OPTION_ARG_NONE, &nolog,
+          "Disable gstd and gstd file logging while in daemon mode (Takes precedence over -l and -d)",
+        NULL}
     ,
     {NULL}
   };
@@ -128,7 +133,7 @@ main (gint argc, gchar * argv[])
   }
 
   if (daemon || kill) {
-    if (!gstd_log_init (gstdlogfile, gstlogfile)) {
+    if (!gstd_log_init (gstdlogfile, gstlogfile, !nolog)) {
       ret = EXIT_FAILURE;
       goto out;
     }
